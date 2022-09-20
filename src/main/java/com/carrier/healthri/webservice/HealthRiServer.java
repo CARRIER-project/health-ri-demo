@@ -142,7 +142,7 @@ public class HealthRiServer extends Server {
     }
 
     private boolean locallyUnknown(Attribute a) {
-        return a.isUknown();
+        return a.isUnknown();
     }
 
     private void readData() {

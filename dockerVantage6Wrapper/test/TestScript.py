@@ -33,7 +33,7 @@ requirements =[{
     "value": {
       "type": "numeric",
       "value": "1",
-      "attributeName": "afb",
+      "attributeName": "x2",
       "uknown": False
     },
     "range": False,

@@ -15,7 +15,3 @@ This project has one method:
 ## Missing data:
 
 Locally missing value should be set to '?' in the case of a hybrid split.
-
-## ToDo:
-
-Create dockerimage for vantage6. Currently dependent on te bugs being fixed.

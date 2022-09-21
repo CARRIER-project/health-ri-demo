@@ -73,7 +73,7 @@ def health_ri_demo(client, data, nodes, requirements, *args, **kwargs):
 
         return response
 
-def _getCount(targetUrl, requirements, targetPredictors):
+def _getCount(targetUrl, requirements):
     r = requests.post(targetUrl + "/sumRelevantValues", json={
         "requirements": requirements,
     })

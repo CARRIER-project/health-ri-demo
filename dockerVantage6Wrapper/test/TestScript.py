@@ -1,10 +1,10 @@
 import vantage6.client as v6client
 
-from src.com.florian.verticox.wrapper.client import HealthRiDemoClient
+from src.com.florian.healthridemo.wrapper.client import HealthRiDemoClient
 
-PRIVATE_KEY_DIR= "C:\Florian\GIT\KEY\CARRIERSurfKey.pem"
-USERNAME="florian"
-PASSWORD="IUkRf79Qm4f0Qqm6!"
+PRIVATE_KEY_DIR= ""
+USERNAME=""
+PASSWORD=""
 
 
 HOST = 'https://v6server.carrier-mu.src.surf-hosted.nl'
@@ -33,7 +33,7 @@ requirements =[{
     "value": {
       "type": "numeric",
       "value": "1",
-      "attributeName": "x1",
+      "attributeName": "afb",
       "uknown": False
     },
     "range": False,

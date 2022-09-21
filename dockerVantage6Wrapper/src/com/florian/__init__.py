@@ -1,1 +1,1 @@
-from .verticox import *
+from .healthridemo import *

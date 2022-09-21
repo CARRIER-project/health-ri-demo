@@ -30,14 +30,14 @@ WORKDIR /build/demo
 RUN git clone git@github.com:CARRIER-project/health-ri-demo.git
 
 WORKDIR /build/demo/health-ri-demo/java
-RUN mvn install -Dmaven.test.skip
+RUN mvn install
 
 FROM openjdk:17-slim as runner
 
 # This is a placeholder that should be overloaded by invoking
 # docker build with '--build-arg PKG_NAME=...'
-ARG PKG_NAME="com.florian.verticox.wrapper"
-ENV JAR_PATH="/app/verticox.jar"
+ARG PKG_NAME="com.florian.healthridemo.wrapper"
+ENV JAR_PATH="/app/healthridemo.jar"
 ENV SERVER_PORT=8888
 
 RUN apt update && apt install -y python3 python3-pip python3-dev g++ musl-dev libffi-dev libssl-dev

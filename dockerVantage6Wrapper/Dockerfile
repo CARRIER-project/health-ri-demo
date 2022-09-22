@@ -47,8 +47,8 @@ RUN pip3 install --no-cache setuptools wheel poetry
 COPY --from=builder /build/demo/health-ri-demo/java/target/health-ri-demo*.jar $JAR_PATH
 
 # install federated algorithm
-COPY . /app
-
+COPY /src/. /app/src
+COPY ./pyproject.toml /app/pyproject.toml
 
 WORKDIR /app
 RUN poetry install && poetry cache clear -n --all pypi

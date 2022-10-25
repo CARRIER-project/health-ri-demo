@@ -2,6 +2,7 @@ package com.carrier.healthri.webservice;
 
 import com.carrier.healthri.webservice.domain.CountIndividualsRequest;
 import com.carrier.healthri.webservice.domain.InitCentralServerRequest;
+import com.carrier.healthri.webservice.domain.Performance;
 import com.florian.nscalarproduct.data.Attribute;
 import com.florian.nscalarproduct.webservice.ServerEndpoint;
 import com.florian.nscalarproduct.webservice.domain.AttributeRequirement;
@@ -24,8 +25,47 @@ public class HealthRiEndpointTest {
     @Test
     public void testValuesMultiplicationX2_PredictorAndOutComeLocal()
             throws NoSuchPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException {
+        HealthRiServer serverZ = new HealthRiServer("resources/performance/data1_1000.csv", "Z");
+        HealthRiEndpoint endpointZ = new HealthRiEndpoint(serverZ);
 
-        assertEquals(1, 1);
+        HealthRiServer server3 = new HealthRiServer("resources/performance/data3_1000.csv", "3");
+        HealthRiEndpoint endpoint3 = new HealthRiEndpoint(server3);
+
+        HealthRiServer server4 = new HealthRiServer("resources/performance/data4_1000.csv", "4");
+        HealthRiEndpoint endpoint4 = new HealthRiEndpoint(server4);
+
+        HealthRiServer server5 = new HealthRiServer("resources/performance/data5_1000.csv", "5");
+        HealthRiEndpoint endpoint5 = new HealthRiEndpoint(server5);
+
+        HealthRiServer server2 = new HealthRiServer("resources/performance/data2_1000.csv", "2");
+        HealthRiEndpoint endpoint2 = new HealthRiEndpoint(server2);
+
+
+        HealthRiServer secret = new HealthRiServer("6", Arrays.asList(endpointZ, endpoint2, endpoint3, endpoint4,
+                                                                      endpoint5));
+        ServerEndpoint secretEnd = new ServerEndpoint(secret);
+
+        List<ServerEndpoint> all = new ArrayList<>();
+        all.add(endpointZ);
+        all.add(endpoint2);
+        all.add(endpoint3);
+        all.add(endpoint4);
+        all.add(endpoint5);
+        all.add(secretEnd);
+        secret.setEndpoints(all);
+        serverZ.setEndpoints(all);
+        server2.setEndpoints(all);
+        server3.setEndpoints(all);
+        server4.setEndpoints(all);
+        server5.setEndpoints(all);
+
+        HealthRiCentralServer central = new HealthRiCentralServer(true);
+        central.initEndpoints(Arrays.asList(endpointZ, endpoint2), secretEnd);
+
+        central.initEndpoints(Arrays.asList(endpointZ, endpoint2), secretEnd);
+
+        Performance p = central.performanceTest();
+        System.out.println(p);
     }
 
     @Test

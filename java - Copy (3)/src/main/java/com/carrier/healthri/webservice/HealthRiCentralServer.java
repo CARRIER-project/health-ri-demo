@@ -76,31 +76,35 @@ public class HealthRiCentralServer extends CentralServer {
         AttributeRequirement x5 = new AttributeRequirement();
         x5.setValue(new Attribute(Attribute.AttributeType.numeric, "1", "x5"));
 
+        CountIndividualsRequest req1 = new CountIndividualsRequest();
         CountIndividualsRequest req2 = new CountIndividualsRequest();
         CountIndividualsRequest req3 = new CountIndividualsRequest();
         CountIndividualsRequest req4 = new CountIndividualsRequest();
         CountIndividualsRequest req5 = new CountIndividualsRequest();
+        req1.setRequirements(Arrays.asList(x1));
         req2.setRequirements(Arrays.asList(x1, x2));
         req3.setRequirements(Arrays.asList(x1, x2, x3));
         req4.setRequirements(Arrays.asList(x1, x2, x3, x4));
         req5.setRequirements(Arrays.asList(x1, x2, x3, x4, x5));
 
-        List<CountIndividualsRequest> reqs = Arrays.asList(req2, req3, req4, req5);
+        List<CountIndividualsRequest> reqs = Arrays.asList(req1, req2, req3, req4, req5);
 
         Performance p = new Performance();
         for (CountIndividualsRequest req : reqs) {
             long time = 0;
-            long start = System.currentTimeMillis();
-            sumRelevantValues(req);
-            long end = System.currentTimeMillis();
-            time += end - start;
+            for (int i = 0; i < 100; i++) {
+                long start = System.currentTimeMillis();
+                sumRelevantValues(req);
+                long end = System.currentTimeMillis();
+                time += end - start;
+            }
             String name = "";
             for (AttributeRequirement r : req.getRequirements()) {
                 name += r.getName();
             }
-            p.getPerformance().put(name, (int) time);
+            int averageTime = (int) (time / 100);
+            p.getPerformance().put(name, averageTime);
         }
-
         return p;
     }
 

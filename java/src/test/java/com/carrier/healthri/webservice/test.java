@@ -10,7 +10,8 @@ public class test {
     public void testPerformance() {
         RestTemplate REST_TEMPLATE = new RestTemplate();
         Performance average = new Performance();
-        for (int i = 0; i < 5; i++) {
+        int count = 50;
+        for (int i = 0; i < count; i++) {
             Performance p = REST_TEMPLATE.getForEntity("http://localhost:8080/performanceTest", Performance.class)
                     .getBody();
             for (String k : p.getPerformance().keySet()) {
@@ -22,9 +23,9 @@ public class test {
             }
         }
         for (String k : average.getPerformance().keySet()) {
-            average.getPerformance().put(k, average.getPerformance().get(k) / 100);
+            average.getPerformance().put(k, average.getPerformance().get(k) / count);
         }
-        
+
         for (String k : average.getPerformance().keySet()) {
             System.out.println(k + " " + average.getPerformance().get(k) + "ms");
         }
